@@ -18,6 +18,7 @@ namespace AuthMVC.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public virtual UserProfile Profile { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole,
@@ -27,7 +28,7 @@ namespace AuthMVC.Models
     : base("DefaultConnection")
         {
         }
-
+        public virtual DbSet<UserProfile> Profiles { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
