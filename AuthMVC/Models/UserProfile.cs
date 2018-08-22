@@ -13,6 +13,7 @@ namespace AuthMVC.Models
         public int Id { get; set; }
         public string Photo { get; set; }
         public string Address { get; set; }
+        public DateTime BirthDay { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
 }

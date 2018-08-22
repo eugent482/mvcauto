@@ -163,8 +163,8 @@ namespace AuthMVC.Controllers
                     path = @"/Content/SaveAvatars/" + filename + extension;
                 }
 
-                var profile = new UserProfile {Address = model.Address, Photo = path};
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Profile=profile };
+                var profile = new UserProfile {Address = model.Address, Photo = path, BirthDay=Convert.ToDateTime(model.BirthDay)};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,PhoneNumber=model.PhoneNumber, Profile=profile };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

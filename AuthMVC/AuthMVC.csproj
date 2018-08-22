@@ -204,6 +204,10 @@
     <Compile Include="Migrations\201808211033290_Add profile.Designer.cs">
       <DependentUpon>201808211033290_Add profile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808221039400_DateTime.cs" />
+    <Compile Include="Migrations\201808221039400_DateTime.Designer.cs">
+      <DependentUpon>201808221039400_DateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -296,6 +300,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808211033290_Add profile.resx">
       <DependentUpon>201808211033290_Add profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808221039400_DateTime.resx">
+      <DependentUpon>201808221039400_DateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

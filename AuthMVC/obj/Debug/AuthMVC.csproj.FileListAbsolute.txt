@@ -240,3 +240,4 @@ D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.dll
 D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.pdb
 D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.Addprofile.resources
 D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.csproj.GenerateResource.cache
+D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.DateTime.resources
