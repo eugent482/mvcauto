@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AuthMVC.Models;
+using System.Drawing;
+using System.IO;
 
 namespace AuthMVC.Controllers
 {
@@ -147,14 +149,35 @@ namespace AuthMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,HttpPostedFileBase image1)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                string path = "";
+                string filename = "";
+                string extension = "";
+                if (image1!=null)
+                {
+                   filename = model.Email+"_avatar";
+                    extension = Path.GetExtension(image1.FileName);
+                    path = @"/Content/SaveAvatars/" + filename + extension;
+                }
+
+                var profile = new UserProfile {Address = model.Address, Photo = path};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Profile=profile };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (image1 != null)
+                    {
+                        var fs = new BinaryWriter(new FileStream(@"D:\mvcauto\AuthMVC\Content\SaveAvatars\"+filename+extension, FileMode.Create, FileAccess.Write));
+                        byte[] buf = new byte[image1.ContentLength];
+                        image1.InputStream.Read(buf, 0, buf.Length);
+                        fs.Write(buf);
+                        fs.Close();
+                    }
+
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

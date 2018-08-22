@@ -64,14 +64,30 @@ namespace AuthMVC.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            string path = "";
+            using (ApplicationDbContext context= new ApplicationDbContext())
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(User.Identity.GetUserId<int>()),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(User.Identity.GetUserId<int>()),
-                Logins = await UserManager.GetLoginsAsync(User.Identity.GetUserId<int>()),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
+                var profile = context.Profiles.Find(Int32.Parse(userId));
+                if (profile != null)
+                {
+                    if(!string.IsNullOrEmpty(profile.Photo))
+                        path = profile.Photo;
+                    else
+                        path = "Content/default_avatar_community.png";
+                }
+                   
+                else
+                    path = "Content/default_avatar_community.png";
+            }
+                var model = new IndexViewModel
+                {
+                    HasPassword = HasPassword(),
+                    PhoneNumber = await UserManager.GetPhoneNumberAsync(User.Identity.GetUserId<int>()),
+                    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(User.Identity.GetUserId<int>()),
+                    Logins = await UserManager.GetLoginsAsync(User.Identity.GetUserId<int>()),
+                    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                    AvatarPath=path
+                };
             return View(model);
         }
 

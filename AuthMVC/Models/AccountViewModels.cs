@@ -79,6 +79,14 @@ namespace AuthMVC.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Address is necessary")]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Display(Name = "Photo")]
+        public string Photo { get; set; }
     }
 
     public class ResetPasswordViewModel
