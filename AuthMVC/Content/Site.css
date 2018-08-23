@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.preview {
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+}
