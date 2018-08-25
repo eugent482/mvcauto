@@ -106,4 +106,11 @@ namespace AuthMVC
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+    public class ApplicationRoleManager: RoleManager<CustomRole,int>
+    {
+        public ApplicationRoleManager(IRoleStore<CustomRole,int> store):base(store)
+        {
+
+        }
+    }
 }

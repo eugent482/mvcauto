@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuthMVC.DAL.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,15 @@ namespace AuthMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUserService _userService;
+        public HomeController(IUserService userService)
+        {
+            _userService = userService;
+        }
         public ActionResult Index()
         {
+            int mycount = _userService.GetCountUsers();
+            ViewBag.RoleId = _userService.AddRole("Moderator");
             return View();
         }
 

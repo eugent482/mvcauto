@@ -19,9 +19,10 @@ namespace AuthMVC.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
+        //public AccountController()
+        //{
+        //}
+
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -33,7 +34,7 @@ namespace AuthMVC.Controllers
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager;// ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set 
             { 
@@ -45,7 +46,7 @@ namespace AuthMVC.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager;// ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -173,7 +174,7 @@ namespace AuthMVC.Controllers
                     if (model.Photo != null)
                     {
 
-                        var fs = new BinaryWriter(new FileStream(@"D:\mvcauto\AuthMVC\Content\SaveAvatars\" + filename + extension, FileMode.Create, FileAccess.Write));
+                        var fs = new BinaryWriter(new FileStream(@"D:\TE\mvcauto\AuthMVC\Content\SaveAvatars\" + filename + extension, FileMode.Create, FileAccess.Write));
                         string base64img = model.Photo.Split(',')[1];
                         byte[] buf = Convert.FromBase64String(base64img);
                         fs.Write(buf);
