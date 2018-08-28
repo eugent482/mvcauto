@@ -495,3 +495,11 @@ D:\TE\mvcauto\AuthMVC\bin\Autofac.xml
 D:\TE\mvcauto\AuthMVC\bin\Autofac.Integration.Mvc.xml
 D:\TE\mvcauto\AuthMVC\bin\Autofac.Integration.Mvc.Owin.xml
 D:\TE\mvcauto\AuthMVC\bin\Autofac.Integration.Owin.xml
+D:\mvcauto\AuthMVC\bin\Autofac.dll
+D:\mvcauto\AuthMVC\bin\Autofac.Integration.Mvc.dll
+D:\mvcauto\AuthMVC\bin\Autofac.Integration.Mvc.Owin.dll
+D:\mvcauto\AuthMVC\bin\Autofac.Integration.Owin.dll
+D:\mvcauto\AuthMVC\bin\Autofac.xml
+D:\mvcauto\AuthMVC\bin\Autofac.Integration.Mvc.xml
+D:\mvcauto\AuthMVC\bin\Autofac.Integration.Mvc.Owin.xml
+D:\mvcauto\AuthMVC\bin\Autofac.Integration.Owin.xml

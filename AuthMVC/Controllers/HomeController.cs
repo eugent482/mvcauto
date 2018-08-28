@@ -16,8 +16,8 @@ namespace AuthMVC.Controllers
         }
         public ActionResult Index()
         {
-            int mycount = _userService.GetCountUsers();
-            ViewBag.RoleId = _userService.AddRole("Moderator");
+            //int mycount = _userService.GetCountUsers();
+            //ViewBag.RoleId = _userService.AddRole("Moderator");
             return View();
         }
 
@@ -35,5 +35,13 @@ namespace AuthMVC.Controllers
 
             return View();
         }
+
+        public ActionResult Error()
+        {
+            ViewBag.Message = "No premission!!!";
+
+            return View();
+        }
+
     }
 }
