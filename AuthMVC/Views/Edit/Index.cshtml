@@ -1,8 +1,48 @@
-﻿
+﻿@model IEnumerable<AuthMVC.Models.UserViewModel>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>USERS EDITOR</h2>
+<h2>USER EDITOR</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Register", null, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>        
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.UserLogin)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.UserRole)
+        </th>
+        <th style="text-align: center;">Management</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.UserLogin)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.UserRole)
+        </td>
+        <td style="text-align: center;">
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-primary"}) |
+           @using (Html.BeginForm("Delete", "Edit", new { id = item.UserID  }, FormMethod.Post, new { @style = "display:inline" }))
+        {
+            <input class = "btn btn-danger" type="submit" value="Delete" onclick = "return confirm('Are you sure?');" } />
+        }
+        </td>
+    </tr>
+}
+
+</table>

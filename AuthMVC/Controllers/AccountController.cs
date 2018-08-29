@@ -179,7 +179,7 @@ namespace AuthMVC.Controllers
                     if (model.Photo != null)
                     {
 
-                        var fs = new BinaryWriter(new FileStream(@"D:\mvcauto\AuthMVC\Content\SaveAvatars\" + filename + extension, FileMode.Create, FileAccess.Write));
+                        var fs = new BinaryWriter(new FileStream(Server.MapPath("~/Content/SaveAvatars/" + filename + extension), FileMode.Create, FileAccess.Write));
                         string base64img = model.Photo.Split(',')[1];
                         byte[] buf = Convert.FromBase64String(base64img);
                         fs.Write(buf);
