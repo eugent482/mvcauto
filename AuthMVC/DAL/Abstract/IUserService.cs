@@ -12,7 +12,11 @@ namespace AuthMVC.DAL.Abstract
         int AddRole(string name);
         List<UserViewModel> GetUsers();
         void DeleteUser(int id);
-        bool CanDelete(int curuser, int deluser);
+        bool CanManage(int curuser, int deluser);
         List<CustomRole> GetRoles();
+        int GetRoleId(int userId);
+        UserEditModel GetUser(int id);
+
+        bool ChangeUser(UserEditModel model);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -27,11 +29,97 @@ namespace AuthMVC.Models
         public ApplicationDbContext()
     : base("DefaultConnection")
         {
+            // Database.SetInitializer<MobileContext>(new MyContextInitializer());
         }
         public virtual DbSet<UserProfile> Profiles { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+    }
+
+    class MyContextInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext db)
+        {
+            IList<CustomRole> defaultRoles = new List<CustomRole>();
+
+            defaultRoles.Add(new CustomRole() { Id=1, Name= "Administrator" });
+            defaultRoles.Add(new CustomRole() { Id = 2, Name = "Moderator" });
+            defaultRoles.Add(new CustomRole() { Id = 3, Name = "User" });
+
+            foreach (var item in defaultRoles)
+            {
+                db.Roles.Add(item);
+            }
+
+
+            for (int i = 1; i < 4; i++)
+            {
+                CustomUserRole role = new CustomUserRole { RoleId = 3 };
+                var profile = new UserProfile { Address = "Ukraine",  BirthDay = Convert.ToDateTime(DateTime.Now)};
+                var user = new ApplicationUser { UserName = "user" + i + "@ukr.net",
+                    Email = "user" + i + "@ukr.net",
+                    PhoneNumber = "0985652211",
+                    Profile = profile,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEndDateUtc = null,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                    PasswordHash = "AOfCM/mu6RJPo0BpZ4AHjwULyz/u2jr4l6UtqIPCVKoMaAyED5Jaw1qhDHGCmVEdJA==",
+                    SecurityStamp = "b8496e15-bacf-427c-9aa3-f62c128e0f43"
+                };
+                user.Roles.Add(role);
+                db.Users.Add(user);
+            }
+            for (int i = 1; i < 4; i++)
+            {
+                CustomUserRole role = new CustomUserRole { RoleId = 2 };
+                var profile = new UserProfile { Address = "USA", BirthDay = Convert.ToDateTime(DateTime.Now) };
+                var user = new ApplicationUser
+                {
+                    UserName = "moderator" + i + "@ukr.net",
+                    Email = "moderator" + i + "@ukr.net",
+                    PhoneNumber = "0985652233",
+                    Profile = profile,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEndDateUtc = null,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                    PasswordHash = "AOfCM/mu6RJPo0BpZ4AHjwULyz/u2jr4l6UtqIPCVKoMaAyED5Jaw1qhDHGCmVEdJA==",
+                    SecurityStamp = "b8496e15-bacf-427c-9aa3-f62c128e0f43"
+                };
+                user.Roles.Add(role);
+                db.Users.Add(user);
+            }
+            for (int i = 1; i < 3; i++)
+            {
+                CustomUserRole role = new CustomUserRole { RoleId = 1 };
+                var profile = new UserProfile { Address = "Germany", BirthDay = Convert.ToDateTime(DateTime.Now) };
+                var user = new ApplicationUser
+                {
+                    UserName = "admin" + i + "@ukr.net",
+                    Email = "admin" + i + "@ukr.net",
+                    PhoneNumber = "0985652233",
+                    Profile = profile,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEndDateUtc = null,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                    PasswordHash = "AOfCM/mu6RJPo0BpZ4AHjwULyz/u2jr4l6UtqIPCVKoMaAyED5Jaw1qhDHGCmVEdJA==",
+                    SecurityStamp = "b8496e15-bacf-427c-9aa3-f62c128e0f43"
+                };
+                user.Roles.Add(role);
+                db.Users.Add(user);
+            }
+
+            base.Seed(db);
         }
     }
 

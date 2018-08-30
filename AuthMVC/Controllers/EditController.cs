@@ -53,7 +53,7 @@ namespace AuthMVC.Controllers
         public ActionResult Delete(int id)
         {
             var uid = Int32.Parse(User.Identity.GetUserId());
-            if (_userService.CanDelete(uid, id))
+            if (_userService.CanManage(uid, id))
             {
                 _userService.DeleteUser(id);
 
@@ -67,9 +67,73 @@ namespace AuthMVC.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Change(UserEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (_userService.GetRoleId(Int32.Parse(User.Identity.GetUserId())) < model.Role)
+                {
+                    string path = "";
+                    string filename = "";
+                    string extension = "";
+                    if (model.Photo != null)
+                    {
+                        int startIndex = model.Photo.IndexOf("/") + 1;
+                        int lastIndex = model.Photo.IndexOf(";");
+                        extension = "." + model.Photo.Substring(startIndex, lastIndex - startIndex);
+                        filename = model.Email + "_avatar";
+                        path = @"/Content/SaveAvatars/" + filename + extension;
+                    }
+
+                    var result = _userService.ChangeUser(model);
+
+                    if (result)
+                    {
+
+                        return RedirectToAction("Index", "Edit");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                   
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            ViewBag.Roles = _userService.GetRoles().Where(x => x.Id > _userService.GetRoleId(Int32.Parse(User.Identity.GetUserId())));
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Change(int id)
+        {
+            var uid = Int32.Parse(User.Identity.GetUserId());
+            if (_userService.CanManage(uid, id))
+            {
+                var usermodel = _userService.GetUser(id);
+                var roles = _userService.GetRoles().Where(x => x.Id > _userService.GetRoleId(Int32.Parse(User.Identity.GetUserId())));
+                roles.Reverse();
+                ViewBag.Roles = roles;
+                return View(usermodel);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+
         public ActionResult Register()
         {
-            var roles = _userService.GetRoles();
+            var roles = _userService.GetRoles().Where(x=>x.Id> _userService.GetRoleId(Int32.Parse(User.Identity.GetUserId())));
             roles.Reverse();
 
             ViewBag.Roles = roles;
@@ -85,41 +149,50 @@ namespace AuthMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                string path = "";
-                string filename = "";
-                string extension = "";
-                if (model.Photo != null)
+               
+                if (_userService.GetRoleId(Int32.Parse(User.Identity.GetUserId()))<roles)
                 {
-                    int startIndex = model.Photo.IndexOf("/") + 1;
-                    int lastIndex = model.Photo.IndexOf(";");
-                    extension = "." + model.Photo.Substring(startIndex, lastIndex - startIndex);
-                    filename = model.Email + "_avatar";
-                    path = @"/Content/SaveAvatars/" + filename + extension;
-                }
-                CustomUserRole role = new CustomUserRole { RoleId = roles };
-                var profile = new UserProfile { Address = model.Address, Photo = path, BirthDay = Convert.ToDateTime(model.BirthDay) };
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber, Profile = profile };
-                user.Roles.Add(role);
-                var result = await UserManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded)
-                {
+                    string path = "";
+                    string filename = "";
+                    string extension = "";
                     if (model.Photo != null)
                     {
-
-                        var fs = new BinaryWriter(new FileStream(Server.MapPath("~/Content/SaveAvatars/" + filename + extension), FileMode.Create, FileAccess.Write));
-                        string base64img = model.Photo.Split(',')[1];
-                        byte[] buf = Convert.FromBase64String(base64img);
-                        fs.Write(buf);
-                        fs.Close();
-
+                        int startIndex = model.Photo.IndexOf("/") + 1;
+                        int lastIndex = model.Photo.IndexOf(";");
+                        extension = "." + model.Photo.Substring(startIndex, lastIndex - startIndex);
+                        filename = model.Email + "_avatar";
+                        path = @"/Content/SaveAvatars/" + filename + extension;
                     }
+                    CustomUserRole role = new CustomUserRole { RoleId = roles };
+                    var profile = new UserProfile { Address = model.Address, Photo = path, BirthDay = Convert.ToDateTime(model.BirthDay) };
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber, Profile = profile };
+                    user.Roles.Add(role);
+                    var result = await UserManager.CreateAsync(user, model.Password);
 
-                    return RedirectToAction("Index", "Edit");
+                    if (result.Succeeded)
+                    {
+                        if (model.Photo != null)
+                        {
+
+                            var fs = new BinaryWriter(new FileStream(Server.MapPath("~/Content/SaveAvatars/" + filename + extension), FileMode.Create, FileAccess.Write));
+                            string base64img = model.Photo.Split(',')[1];
+                            byte[] buf = Convert.FromBase64String(base64img);
+                            fs.Write(buf);
+                            fs.Close();
+
+                        }
+
+                        return RedirectToAction("Index", "Edit");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
-            ViewBag.Roles = _userService.GetRoles();
+            ViewBag.Roles = _userService.GetRoles().Where(x => x.Id > _userService.GetRoleId(Int32.Parse(User.Identity.GetUserId())));
             return View(model);
         }
 

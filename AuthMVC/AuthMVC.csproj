@@ -228,6 +228,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -321,6 +322,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Edit\Index.cshtml" />
     <Content Include="Views\Edit\Register.cshtml" />
+    <Content Include="Views\Edit\Change.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
