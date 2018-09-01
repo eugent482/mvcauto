@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AuthMVC.Models.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -29,9 +30,11 @@ namespace AuthMVC.Models
         public ApplicationDbContext()
     : base("DefaultConnection")
         {
-            // Database.SetInitializer<MobileContext>(new MyContextInitializer());
+            // Database.SetInitializer<ApplicationDbContext>(new MyContextInitializer());
         }
         public virtual DbSet<UserProfile> Profiles { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
