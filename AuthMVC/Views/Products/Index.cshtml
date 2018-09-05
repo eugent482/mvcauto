@@ -13,12 +13,15 @@
 <div>
     @using (Html.BeginForm("Index","Products",FormMethod.Get))
     {
-        @Html.TextBox("search",null, new { @class="form-control", @placeholder="Search",@autocomplete="off"});
+    <div>
+        @Html.TextBox("search", null, new { @class = "form-control", @placeholder = "Search", @autocomplete = "off", @style = "display:inline" })
+        <input type="submit" class="btn btn-success"  value="Search"  />
         <div class="autoCompleteData" id="autoCompleteData" name="autoCompleteData"></div>
-        <input type="submit" class="btn btn-success" value="Search"/>
+    </div>  
+        
     }
 </div>
-<table class="table">
+<table class="table" style="margin-top:20px">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Category.Name)
@@ -62,9 +65,7 @@
 <script>
     $(function () {
         $("#search").on('keyup', function () {
-            //console.log("Hello")
             var text = $(this).val();
-            //console.log(text);
             var numChar = text.length;
             var divAuto = $("#autoCompleteData");
             if (numChar >= 3) {
@@ -78,7 +79,6 @@
                     dataType: "json",
                     contentType: "application/json; charset=utf8",
                     success: function (result) {
-                        //console.log(result.length);
                         var p = result;
                         if (p.length > 0) {
                             divAuto.show();
