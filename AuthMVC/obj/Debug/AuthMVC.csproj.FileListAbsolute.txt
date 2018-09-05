@@ -637,3 +637,8 @@ D:\TE\dd\mvcauto\AuthMVC\obj\Debug\AuthMVC.csproj.CopyComplete
 D:\TE\dd\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.Addcategories.resources
 D:\TE\dd\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.addproducts.resources
 D:\TE\dd\mvcauto\AuthMVC\bin\Microsoft.VisualStudio.DebuggerVisualizers.dll
+D:\mvcauto\AuthMVC\bin\Microsoft.VisualStudio.DebuggerVisualizers.dll
+D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.Addcategories.resources
+D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.addproducts.resources
+D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.ProductInfo.resources
+D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.ProductInfo2.resources

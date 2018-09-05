@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -21,20 +22,61 @@ namespace AuthMVC.Controllers
         {
             db = _db;
         }
+
+        [NoCache]
         // GET: Products
         public ActionResult Index(string search)
         {
-            
-            var products = db.Products.Include(p => p.Category);
-            if(!string.IsNullOrEmpty(search))
+
+            var products = db.Products.Include(p => p.Category).Include(x=>x.Info);
+
+
+
+            if (!string.IsNullOrEmpty(search))
             {
-                products = products.Where(p => p.Name.Contains(search) 
-                    || p.Description.Contains(search) 
+                products = products.Where(p => p.Name.Contains(search)
+                    || p.Description.Contains(search)
                     || p.Category.Name.Contains(search));
             }
-            return View(products.ToList());
+
+            List<ProductViewModel> models = new List<ProductViewModel>();
+          
+                foreach (var item in products)
+                {
+                    ProductViewModel model = new ProductViewModel
+                    {
+                        Id = item.Id,
+                        Name=item.Name,
+                        CategoryId = item.CategoryId,
+                        Description = item.Description,
+                        Price = item.Price,
+                        Photo = item.Info.Photo,
+                        CategoryName = item.Category.Name
+
+                    };
+                    models.Add(model);
+                }
+            
+            return View(models);
 
         }
+
+        [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+        public sealed class NoCacheAttribute : ActionFilterAttribute
+        {
+            public override void OnResultExecuting(ResultExecutingContext filterContext)
+            {
+                filterContext.HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+                filterContext.HttpContext.Response.Cache.SetValidUntilExpires(false);
+                filterContext.HttpContext.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+                filterContext.HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                filterContext.HttpContext.Response.Cache.SetNoStore();
+
+                base.OnResultExecuting(filterContext);
+            }
+        }
+
+
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -48,7 +90,20 @@ namespace AuthMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            ProductViewModel model = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                Price = product.Price,
+                Photo = product.Info.Photo,
+                CategoryName = product.Category.Name
+
+            };
+
+
+            return View(model);
         }
 
         // GET: Products/Create
@@ -63,17 +118,45 @@ namespace AuthMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] Product product)
+        public ActionResult Create(ProductViewModel productview)
         {
+
             if (ModelState.IsValid)
             {
+                Product product = new Product
+                {
+                    Name = productview.Name,
+                    Description = productview.Description,
+                    Price = productview.Price,
+                    CategoryId = productview.CategoryId   ,
+                    Info=new ProductInfo()
+                };
                 db.Products.Add(product);
                 db.SaveChanges();
+                string path = "";
+                string filename = "";
+                string extension = "";
+                if (!String.IsNullOrEmpty(productview.Photo))
+                {
+                    int startIndex = productview.Photo.IndexOf("/") + 1;
+                    int lastIndex = productview.Photo.IndexOf(";");
+                    extension = "." + productview.Photo.Substring(startIndex, lastIndex - startIndex);
+                    filename = product.Id + "_avatar";
+                    path = @"/Content/ProductAvatars/" + filename + extension;
+                    product.Info.Photo = path;
+                    db.SaveChanges();
+                    var fs = new BinaryWriter(new FileStream(Server.MapPath("~/Content/ProductAvatars/" + filename + extension), FileMode.Create, FileAccess.Write));
+                    string base64img = productview.Photo.Split(',')[1];
+                    byte[] buf = Convert.FromBase64String(base64img);
+                    fs.Write(buf);
+                    fs.Close();
+                }
+               
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
-            return View(product);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", productview.CategoryId);
+            return View(productview);
         }
 
         // GET: Products/Edit/5
@@ -88,8 +171,19 @@ namespace AuthMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ProductViewModel model = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                Price = product.Price,
+                Photo = product.Info.Photo,
+                CategoryName = product.Category.Name
+
+            };
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(model);
         }
 
         // POST: Products/Edit/5
@@ -97,16 +191,53 @@ namespace AuthMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] Product product)
+        public ActionResult Edit(ProductViewModel productview)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                Product product = db.Products.Find(productview.Id);
+                product.Name = productview.Name;
+                product.Description = productview.Description;
+                product.Price = productview.Price;
+                product.CategoryId = productview.CategoryId;
+                
+
+                string path = "";
+                string filename = "";
+                string extension = "";
+                if (!String.IsNullOrEmpty(productview.Photo))
+                {
+                    if (product.Info == null)
+                        product.Info = new ProductInfo();
+                    if (!String.IsNullOrEmpty(product.Info.Photo))
+                    {
+                        try
+                        {                            
+                            System.IO.File.Delete(product.Info.Photo);
+                        }
+                        catch (Exception)
+                        { }
+                    }
+                    int startIndex = productview.Photo.IndexOf("/") + 1;
+                    int lastIndex = productview.Photo.IndexOf(";");
+                    extension = "." + productview.Photo.Substring(startIndex, lastIndex - startIndex);
+                    filename = product.Id + "_avatar";
+                    path = @"/Content/ProductAvatars/" + filename + extension;
+                    product.Info.Photo = path;
+                }
                 db.SaveChanges();
+                if (!String.IsNullOrEmpty(productview.Photo))
+                {
+                    var fs = new BinaryWriter(new FileStream(Server.MapPath("~/Content/ProductAvatars/" + filename + extension), FileMode.Create, FileAccess.Write));
+                    string base64img = productview.Photo.Split(',')[1];
+                    byte[] buf = Convert.FromBase64String(base64img);
+                    fs.Write(buf);
+                    fs.Close();
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
-            return View(product);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", productview.CategoryId);
+            return View(productview);
         }
 
         // GET: Products/Delete/5
@@ -121,25 +252,35 @@ namespace AuthMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            ProductViewModel model = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                Price = product.Price,
+                Photo = product.Info.Photo,
+                CategoryName = product.Category.Name
+
+            };
+            return View(model);
         }
 
         #region
         [HttpGet]
         public ContentResult SearchByNameJson(string search)
         {
-            //var products = db.Products.Include(p => p.Category);
-            //if (!string.IsNullOrEmpty(search))
-            //{
-              var  products = db.Products.Include(p => p.Category).Where(p => p.Name.Contains(search)
-                    || p.Description.Contains(search)
-                    || p.Category.Name.Contains(search)).Select(p => new ProductAutocompleteViewModel
-                    {
-                        Id=p.Id,
-                        Name=p.Name,
-                        CategoryName=p.Category.Name
-                    }).ToList();
-           // }
+            var products = db.Products.Include(p => p.Category).Include(x=>x.Info).Where(p => p.Name.Contains(search)
+                 || p.Description.Contains(search)
+                 || p.Category.Name.Contains(search)).Select(p => new ProductAutocompleteViewModel
+                 {
+                     Id = p.Id,
+                     Name = p.Name,
+                     CategoryName = p.Category.Name,
+                     Image=p.Info.Photo
+                 }).ToList();
+
+         
 
             string json = JsonConvert.SerializeObject(products);
 
@@ -153,7 +294,9 @@ namespace AuthMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = db.Products.Find(id);    
+            if(product.Info!=null)
+                db.ProductInfoes.Remove(product.Info);
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");

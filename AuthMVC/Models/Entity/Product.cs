@@ -20,5 +20,6 @@ namespace AuthMVC.Models.Entity
         [ForeignKey("Category")]
         public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual ProductInfo Info { get; set; }
     }
 }

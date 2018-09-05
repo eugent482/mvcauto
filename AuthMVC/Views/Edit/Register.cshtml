@@ -73,71 +73,70 @@
                 }
             </select>
         </div>
+    </div>
+    <div>
+        <label class="col-md-2 control-label">Preview</label>
+        <div class="col-md-10">
+            <img id="user_img"
+                 style="border:solid; max-height:200px;max-width:200px; margin-bottom:40px" src="~/Content/default_avatar_community.png" />
         </div>
-        <div>
-            <label class="col-md-2 control-label">Preview</label>
-            <div class="col-md-10">
-                <img id="user_img"
-                     style="border:solid; max-height:200px;max-width:200px; margin-bottom:40px" src="~/Content/default_avatar_community.png" />
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Register" />
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
             </div>
         </div>
-        }
+    </div>
+}
 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="img-container">
-                                        <canvas id="canvas">
-                                            Your browser does not support HTML Canvas
-                                        </canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="preview">
-                                    </div>
-                                </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="img-container">
+                                <canvas id="canvas">
+                                    Your browser does not support HTML Canvas
+                                </canvas>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="btn-group" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-primary" id="ratio43">4:3</button>
-                                        <button type="button" class="btn btn-primary" id="ratio169">16:9</button>
-                                        <button type="button" class="btn btn-primary" style="border-style:inset;" id="ratiofree">Free</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="btn-group" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-primary" id="rotateleft">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="rotateright">
-                                            <i class="fas fa-undo fa-flip-horizontal"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="btn-group" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-primary" id="saveServer">Crop Image</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="preview">
                             </div>
-
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-primary" id="ratio43">4:3</button>
+                                <button type="button" class="btn btn-primary" id="ratio169">16:9</button>
+                                <button type="button" class="btn btn-primary" style="border-style:inset;" id="ratiofree">Free</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-primary" id="rotateleft">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary" id="rotateright">
+                                    <i class="fas fa-undo fa-flip-horizontal"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-primary" id="saveServer">Crop Image</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        @section Scripts {
+    </div>
+</div>
+@section Scripts {
 
-
-        }
+}

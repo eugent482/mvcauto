@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AuthMVC.Models.Entity.Product>
+﻿@model IEnumerable<AuthMVC.Models.ProductViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -24,7 +24,7 @@
 <table class="table" style="margin-top:20px">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -35,13 +35,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
+            @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -53,9 +56,19 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (!string.IsNullOrEmpty(item.Photo))
+            {
+                <img src="@Url.Content(item.Photo)" style="max-width:150px;max-height:150px" alt="Image" />
+            }
+            else
+            {
+
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }
@@ -86,7 +99,7 @@
                             var strHtml = "<ul>";
 
                             for (var i = 0; i < p.length; i++) {
-                                strHtml += "<li><a>"+p[i].Name+"("+p[i].CategoryName+")</a></li>";
+                                strHtml += "<li><img src=" + p[i].Image + " alt=\"Image\">  <a href=/Products/Details/"+p[i].Id+">"+p[i].Name+" ("+p[i].CategoryName+")</a></li>";
                             }
                             strHtml += "</ul>";
                             divAuto.html(strHtml);

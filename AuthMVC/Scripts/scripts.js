@@ -1,5 +1,5 @@
 ﻿$(function () {
-	var $canvas = $("#canvas"),
+	var $canvas = $("#canvas");
 		context = $canvas.get(0).getContext('2d');
 
 
@@ -101,6 +101,7 @@
 								//Раніше написане не відноситься до кропера
 								var cropper = $canvas.cropper('destroy').cropper({									
 									dragMode: 'move',
+									aspectRatio: 9 / 9,
 									viewMode: 1,
 									preview: '.preview',
 									rotatable: true
