@@ -12,72 +12,72 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Product</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+    <div class="form-horizontal">
+        <h4>Product</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="hidden" id="photo" name="photo" />
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="hidden" id="photo" name="photo" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            <input type="file" accept=".jpg,.jpeg,.png" name="img_file" id="img_file" class="btn-primary" />
+        <div class="form-group">
+            @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="file" accept=".jpg,.jpeg,.png" name="img_file" id="img_file" class="btn-primary" />
+            </div>
         </div>
-    </div>
-    <label class="col-md-2 control-label">Preview</label>
-    <div class="col-md-10">
-        @if (!String.IsNullOrEmpty(Model.Photo))
-        {
-            <img id="user_img" style="border:solid; max-height:200px;max-width:200px; margin-bottom:40px" src="@Model.Photo" />
-        }
-        else
-        {
-            <img id="user_img" style="border:solid; max-height:200px;max-width:200px; margin-bottom:40px" src="~/Content/default_avatar_community.png" />
-        }
-    </div>
+        <label class="col-md-2 control-label">Preview</label>
+        <div class="col-md-10">
+            @if (!String.IsNullOrEmpty(Model.Photo))
+            {
+                <img id="user_img" style="border:solid; max-height:200px;max-width:200px; margin-bottom:40px" src="@Model.Photo" />
+            }
+            else
+            {
+                <img id="user_img" style="border:solid; max-height:200px;max-width:200px; margin-bottom:40px" src="~/Content/default_avatar_community.png" />
+            }
+        </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
@@ -104,10 +104,10 @@
                     <div class="row">
                         <div class="col-md-3">
                             @*<div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-primary" id="ratio43">4:3</button>
-                                <button type="button" class="btn btn-primary" id="ratio169">16:9</button>
-                                <button type="button" class="btn btn-primary" style="border-style:inset;" id="ratiofree">Free</button>
-                            </div>*@
+                                    <button type="button" class="btn btn-primary" id="ratio43">4:3</button>
+                                    <button type="button" class="btn btn-primary" id="ratio169">16:9</button>
+                                    <button type="button" class="btn btn-primary" style="border-style:inset;" id="ratiofree">Free</button>
+                                </div>*@
                         </div>
                         <div class="col-md-3">
                             <div class="btn-group" role="group" aria-label="...">
@@ -133,5 +133,7 @@
     </div>
 </div>
 @section Scripts {
+    @Scripts.Render("~/bundles/cropper")
     @Scripts.Render("~/bundles/jqueryval")
+
 }
