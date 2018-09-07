@@ -30,7 +30,7 @@ namespace AuthMVC.Models
         public ApplicationDbContext()
     : base("DefaultConnection")
         {
-            // Database.SetInitializer<ApplicationDbContext>(new MyContextInitializer());
+            Database.SetInitializer<ApplicationDbContext>(new MyContextInitializer());
         }
         public virtual DbSet<UserProfile> Profiles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -48,7 +48,7 @@ namespace AuthMVC.Models
         {
             IList<CustomRole> defaultRoles = new List<CustomRole>();
 
-            defaultRoles.Add(new CustomRole() { Id=1, Name= "Administrator" });
+            defaultRoles.Add(new CustomRole() { Id = 1, Name = "Administrator" });
             defaultRoles.Add(new CustomRole() { Id = 2, Name = "Moderator" });
             defaultRoles.Add(new CustomRole() { Id = 3, Name = "User" });
 
@@ -61,7 +61,7 @@ namespace AuthMVC.Models
             for (int i = 1; i < 4; i++)
             {
                 CustomUserRole role = new CustomUserRole { RoleId = 3 };
-                var profile = new UserProfile { Address = "Ukraine",  BirthDay = Convert.ToDateTime(DateTime.Now)};
+                var profile = new UserProfile { Address = "Ukraine", BirthDay = Convert.ToDateTime(DateTime.Now) };
                 var user = new ApplicationUser { UserName = "user" + i + "@ukr.net",
                     Email = "user" + i + "@ukr.net",
                     PhoneNumber = "0985652211",
@@ -123,6 +123,18 @@ namespace AuthMVC.Models
                 db.Users.Add(user);
             }
 
+            Category vegetable = new Category { Id = 1, Name = "Овочі" };
+            Category meat = new Category { Id = 2, Name = "М'ясо" };
+            db.Categories.Add(vegetable);
+            db.Categories.Add(meat);
+
+
+            db.Products.Add(new Product { Name = "Помідор", Category = vegetable, Description = "Соковитий помідор", Price = 21/*, Info = new ProductInfo { }*/ });
+            db.Products.Add(new Product { Name = "Картопля", Category = vegetable, Description = "Смачна картопля", Price = 11/*, Info = new ProductInfo { }*/ });
+            db.Products.Add(new Product { Name = "Огірок", Category = vegetable, Description = "Хрумкий огірок", Price = 15/*, Info = new ProductInfo { }*/ });
+
+            db.Products.Add(new Product { Name = "Курка", Category = meat, Description = "Ко ко ко", Price = 99/*, Info = new ProductInfo { }*/ });
+            db.Products.Add(new Product { Name = "Свинина", Category = meat, Description = "Хрю хрю", Price = 120/*, Info = new ProductInfo { }*/ });
             base.Seed(db);
         }
     }

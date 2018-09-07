@@ -49,11 +49,14 @@ namespace AuthMVC.Controllers
                         Name=item.Name,
                         CategoryId = item.CategoryId,
                         Description = item.Description,
-                        Price = item.Price,
-                        Photo = item.Info.Photo,
+                        Price = item.Price,                        
                         CategoryName = item.Category.Name
 
                     };
+                if (item.Info != null)
+                {
+                    model.Photo = item.Info.Photo;
+                }
                     models.Add(model);
                 }
             
@@ -97,11 +100,13 @@ namespace AuthMVC.Controllers
                 CategoryId = product.CategoryId,
                 Description = product.Description,
                 Price = product.Price,
-                Photo = product.Info.Photo,
                 CategoryName = product.Category.Name
 
             };
-
+            if (product.Info != null)
+            {
+                model.Photo = product.Info.Photo;
+            }
 
             return View(model);
         }
@@ -178,10 +183,13 @@ namespace AuthMVC.Controllers
                 CategoryId = product.CategoryId,
                 Description = product.Description,
                 Price = product.Price,
-                Photo = product.Info.Photo,
                 CategoryName = product.Category.Name
 
             };
+            if (product.Info != null)
+            {
+                model.Photo = product.Info.Photo;
+            }
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
             return View(model);
         }
@@ -259,10 +267,13 @@ namespace AuthMVC.Controllers
                 CategoryId = product.CategoryId,
                 Description = product.Description,
                 Price = product.Price,
-                Photo = product.Info.Photo,
                 CategoryName = product.Category.Name
 
             };
+            if (product.Info != null)
+            {
+                model.Photo = product.Info.Photo;
+            }
             return View(model);
         }
 
