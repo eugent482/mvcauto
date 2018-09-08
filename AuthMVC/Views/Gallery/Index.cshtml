@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "List images gallery";
+}
+
+<h2>@ViewBag.Title</h2>
+<div id="fileContainer"></div>
+
+<div class="row" id="listphotos">
+    <div class="col-md-2">
+        <div class="thumbnail">
+            <i class="fa fa-times fa-2x icon-delete" aria-hide="true"></i>
+            <img src="~/Content/plusimg.png" class="uploadimage" />
+            <div class="caption"><p>Add new image</p></div>
+        </div>
+    </div>
+
+</div>
+@Html.Partial("_CropperDialog")
+
+@section scripts{
+    @Scripts.Render("~/bundles/gallery")
+    @Scripts.Render("~/bundles/croppermin")
+
+}
+@section styles{
+
+    @Styles.Render("~/Content/gallery")
+
+}

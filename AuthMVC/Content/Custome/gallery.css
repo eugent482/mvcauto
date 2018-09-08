@@ -1,0 +1,10 @@
+﻿.uploadimage {
+    cursor:pointer;
+}
+
+.icon-delete{
+    color:red;
+    cursor:pointer;
+    float:right;
+    display: none;
+}

@@ -211,6 +211,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -266,26 +267,47 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cropper.css" />
     <Content Include="Content\Custome\autoCompleteData.css" />
+    <Content Include="Content\Custome\gallery.css" />
     <Content Include="Content\default_avatar_community.png" />
+    <Content Include="Content\fa-brands.css" />
+    <Content Include="Content\fa-brands.min.css" />
+    <Content Include="Content\fa-regular.css" />
+    <Content Include="Content\fa-regular.min.css" />
+    <Content Include="Content\fa-solid.css" />
+    <Content Include="Content\fa-solid.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fontawesome-all.css" />
     <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome.css" />
+    <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\Main.css" />
+    <Content Include="Content\plusimg.png" />
     <Content Include="Content\SaveAvatars\32828425_2083608768522334_7604059840301760512_n.jpg" />
     <Content Include="Content\SaveAvatars\3849.jpg" />
     <Content Include="Content\SaveAvatars\Illyuk.jpg" />
     <Content Include="Content\SaveAvatars\malanchuk.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\gallery.js" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\cropper.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -359,6 +381,8 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Gallery\Index.cshtml" />
+    <Content Include="Views\Gallery\_CropperDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

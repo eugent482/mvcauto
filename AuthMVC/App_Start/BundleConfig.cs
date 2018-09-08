@@ -20,15 +20,27 @@ namespace AuthMVC
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootbox.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/fontawesome-all.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/cropper").Include(
                       "~/Scripts/cropper.js",
                       "~/Scripts/scripts.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/croppermin").Include(
+                      "~/Scripts/cropper.js" ));
+
+            bundles.Add(new StyleBundle("~/Content/gallery").Include(
+                      "~/Content/Custome/gallery.css"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/gallery").Include(
+                      "~/Scripts/gallery.js"));
         }
     }
 }

@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @RenderSection("styles", required: false)
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+   
+  
 
 
 
@@ -31,6 +30,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
                     <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                    <li>@Html.ActionLink("Gallery", "Index", "Gallery")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,17 +43,15 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
     <link href="~/Content/cropper.css" rel="stylesheet" />
     <link href="~/Content/Main.css" rel="stylesheet" />
-    <link href="~/Content/fontawesome-all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    @*<script src="~/Scripts/scripts.js"></script>
-    <script src="~/Scripts/cropper.js"></script>*@
 
 </body>
 </html>

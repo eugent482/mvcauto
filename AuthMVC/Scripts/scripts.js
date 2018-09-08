@@ -104,7 +104,8 @@
 									aspectRatio: 9 / 9,
 									viewMode: 1,
 									preview: '.preview',
-									rotatable: true
+                                    rotatable: true,
+                                    
 								});
 								
 

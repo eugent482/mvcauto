@@ -30,7 +30,7 @@ namespace AuthMVC.Models
         public ApplicationDbContext()
     : base("DefaultConnection")
         {
-            Database.SetInitializer<ApplicationDbContext>(new MyContextInitializer());
+           // Database.SetInitializer<ApplicationDbContext>(new MyContextInitializer());
         }
         public virtual DbSet<UserProfile> Profiles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
