@@ -8,7 +8,8 @@
             $(".uploadimage").on("click", function () {
                 var inputFile = $("<input/>").attr('type', 'file')
                     .attr('name', 'chosenImage')
-                    .attr('style','display:none');
+					.attr('style', 'display:none')
+					.attr('accept','.jpg,.jpeg,.png');
                 $("#fileContainer").append(
                     inputFile
                 );
@@ -114,17 +115,24 @@
         var div = $('#listphotos');
         var data = '<div class="col-md-2">';
         data += '<div class="thumbnail">';
-        data += '<i class="fa fa-times fa-2x icon-delete" aria-hide="true"></i>';
+        data += '<i class="fa fa-times fa-2x icon-delete" aria-hide="true" id="lol" style="display:block"></i>';
         data += '<img src="'+croppedImage+'" />';
         data += '</div>';
         data += '</div>';
-        div.prepend(data);
+        div.append(data);
 
         //$('#user_img').attr('src', croppedImage);
 
 
         $('#exampleModalCenter').modal('toggle');
 
+	});
 
-    });
+	$(document).on('click', '.icon-delete', function () {
+		$(this).parent().parent().remove();
+
+	});
+
+	
+	
 });
