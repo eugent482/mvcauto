@@ -36,6 +36,7 @@ namespace AuthMVC.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductInfo> ProductInfoes { get; set; }
+        public virtual DbSet<PhotoGallery> GalleryPhotos { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

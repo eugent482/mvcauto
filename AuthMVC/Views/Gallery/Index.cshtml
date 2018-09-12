@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<AuthMVC.Models.Entity.PhotoGallery>
+
 @{
     ViewBag.Title = "List images gallery";
 }
@@ -14,9 +15,17 @@
             <div class="caption"><p>Add new image</p></div>
         </div>
     </div>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2">
+            <div class="thumbnail">
+                <i class="fa fa-times fa-2x icon-delete" imgid="@item.Id" aria-hide="true" style="display:block"></i>
+                <img class="uploadimage" src="@item.MainPhoto" />
+            </div>
+        </div>
 
+    }
 </div>
-<button id="btn">Press</button>
 @Html.Partial("_CropperDialog")
 
 @section scripts{

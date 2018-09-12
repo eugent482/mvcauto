@@ -110,26 +110,49 @@
 
     $("#saveServer").click(function () {
 
-        var croppedImage = $canvas.cropper('getCroppedCanvas').toDataURL('image/jpg');
+        var base64 = $canvas.cropper('getCroppedCanvas').toDataURL('image/jpg');
 
         var div = $('#listphotos');
-        var data = '<div class="col-md-2">';
-        data += '<div class="thumbnail">';
-        data += '<i class="fa fa-times fa-2x icon-delete" aria-hide="true" id="lol" style="display:block"></i>';
-        data += '<img src="'+croppedImage+'" />';
-        data += '</div>';
-        data += '</div>';
-        div.append(data);
-
-        //$('#user_img').attr('src', croppedImage);
-
-
-        $('#exampleModalCenter').modal('toggle');
-
+		var data = '<div class="col-md-2">';
+		$('#exampleModalCenter').modal('toggle');
+		$.ajax({
+			type: "POST",
+			url: '/Gallery/AddPhoto',
+			data: { image: base64 },
+			success: function (model) {
+				console.log(model.MainPhoto);
+				data += '<div class="thumbnail">';
+				data += '<i class="fa fa-times fa-2x icon-delete" imgid="' + model.Id + '" aria-hide="true" style="display:block"></i>';
+				data += '<img class="uploadimage" src="' + model.MainPhoto + '" />';
+				data += '</div>';
+				data += '</div>';
+				div.append(data);
+				
+			},
+			error: function (msg) {
+				alert(msg);
+			}
+		});		
 	});
 
+
+
 	$(document).on('click', '.icon-delete', function () {
-		$(this).parent().parent().remove();
+		console.log($(this).attr("imgid"));
+		var element = $(this);
+		$.ajax({
+			type: "POST",
+			url: '/Gallery/DeletePhoto',
+			data: { id: $(this).attr("imgid") },
+			success: function (data) {
+				element.parent().parent().remove();
+			},
+			error: function (msg) {
+				alert(msg);
+			}
+		});
+
+		
 
 	});
 

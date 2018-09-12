@@ -778,3 +778,4 @@ D:\TE\080918\mvcauto\AuthMVC\obj\Debug\AuthMVC.csproj.CoreCompileInputs.cache
 D:\TE\080918\mvcauto\AuthMVC\obj\Debug\AuthMVC.csproj.CopyComplete
 D:\TE\080918\mvcauto\AuthMVC\obj\Debug\AuthMVC.dll
 D:\TE\080918\mvcauto\AuthMVC\obj\Debug\AuthMVC.pdb
+D:\mvcauto\AuthMVC\obj\Debug\AuthMVC.Migrations.Gallerytable.resources

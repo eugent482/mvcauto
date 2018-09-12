@@ -245,9 +245,14 @@
     <Compile Include="Migrations\201809050921473_ProductInfo2.Designer.cs">
       <DependentUpon>201809050921473_ProductInfo2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809101217575_Gallery table.cs" />
+    <Compile Include="Migrations\201809101217575_Gallery table.Designer.cs">
+      <DependentUpon>201809101217575_Gallery table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entity\Category.cs" />
+    <Compile Include="Models\Entity\PhotoGallery.cs" />
     <Compile Include="Models\Entity\Product.cs" />
     <Compile Include="Models\Entity\ProductInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -419,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809050921473_ProductInfo2.resx">
       <DependentUpon>201809050921473_ProductInfo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101217575_Gallery table.resx">
+      <DependentUpon>201809101217575_Gallery table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
